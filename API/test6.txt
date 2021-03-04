@@ -1,0 +1,19 @@
+Array
+(
+    [0] => Array
+        (
+            [NAME] => Fakhri Gul
+            [EMAIL] => fakhrigulmammad@gmail.com
+            [PHONE] => +994502883371
+            [GROUP_NAME] => ADMIN
+        )
+
+    [1] => Array
+        (
+            [NAME] => TESTER
+            [EMAIL] => fakhrigulmamma2d@gmail.com
+            [PHONE] => +9945028833712
+            [GROUP_NAME] => ADMIN
+        )
+
+)

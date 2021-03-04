@@ -1,0 +1,38 @@
+Array
+(
+    [0] => Array
+        (
+            [GROUP_NAME] => ADMIN
+            [NUM_USERS] => 1
+            [ACCESS] => ALL
+        )
+
+    [1] => Array
+        (
+            [GROUP_NAME] => ADMIN
+            [NUM_USERS] => 1
+            [ACCESS] => ALL
+        )
+
+    [2] => Array
+        (
+            [GROUP_NAME] => PROJECT_MANAGER
+            [NUM_USERS] => 1
+            [ACCESS] => ALL
+        )
+
+    [3] => Array
+        (
+            [GROUP_NAME] => PROJECT_MANAGER
+            [NUM_USERS] => 1
+            [ACCESS] => ALL
+        )
+
+    [4] => Array
+        (
+            [GROUP_NAME] => asdfasdfas
+            [NUM_USERS] => 2
+            [ACCESS] => asdfasdfas
+        )
+
+)
