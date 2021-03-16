@@ -1,9 +1,8 @@
 <script type="module">
 import { RequestAPI } from './requestapi.js';
 window.RequestAPI = RequestAPI;
-document.onload = RequestAPI.Request('readUser');
+document.onload = RequestAPI.Request('readPayment');
 </script>
-
 
 <!DOCTYPE html>
 <html>
@@ -12,14 +11,9 @@ document.onload = RequestAPI.Request('readUser');
 </head>
 <body>
 <div id='body'></div>
+<!-- <div id='project'></div> -->
 <br>
-<button onclick="window.location.href = 'index.php';">Back</button>
+	<button onclick="window.location.href = 'index.php';">Back</button>
 </body>
 </html>
 
-
-
-
-<?php
-
- ?>

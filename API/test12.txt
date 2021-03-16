@@ -1,0 +1,33 @@
+Array
+(
+    [0] => Array
+        (
+            [GROUP_NAME] => ADMIN
+        )
+
+    [1] => Array
+        (
+            [GROUP_NAME] => ADMIN
+        )
+
+    [2] => Array
+        (
+            [GROUP_NAME] => NewGroup
+        )
+
+    [3] => Array
+        (
+            [GROUP_NAME] => PROJECT_MANAGER
+        )
+
+    [4] => Array
+        (
+            [GROUP_NAME] => PROJECT_MANAGER
+        )
+
+    [5] => Array
+        (
+            [GROUP_NAME] => Testing1
+        )
+
+)

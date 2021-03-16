@@ -2,18 +2,47 @@ Array
 (
     [0] => Array
         (
-            [NAME] => Fakhri Gul
-            [EMAIL] => fakhrigulmammad@gmail.com
-            [PHONE] => +994502883371
-            [GROUP_NAME] => ADMIN
+            [NAME] => fakhri asadov
+            [EMAIL] => fakhri.gulmammadov@ufaz.az
+            [PHONE] => 34543534534
+            [GROUP_NAME] => NewGroup
+            [PROJECTS] => 
         )
 
     [1] => Array
         (
-            [NAME] => TESTER
-            [EMAIL] => fakhrigulmamma2d@gmail.com
-            [PHONE] => +9945028833712
-            [GROUP_NAME] => ADMIN
+            [NAME] => fakhri
+            [EMAIL] => faxriafasdfas1999@mail.ru
+            [PHONE] => sadfsadfasd
+            [GROUP_NAME] => NewGroup
+            [PROJECTS] => 
+        )
+
+    [2] => Array
+        (
+            [NAME] => ASFDASFASDF
+            [EMAIL] => adsfasd@mail.ru
+            [PHONE] => 249523432
+            [GROUP_NAME] => NewGroup
+            [PROJECTS] => 
+        )
+
+    [3] => Array
+        (
+            [NAME] => asdfasfasd
+            [EMAIL] => dsafasdfasd@sdaf.ru
+            [PHONE] => 2482423432
+            [GROUP_NAME] => NewGroup
+            [PROJECTS] => 
+        )
+
+    [4] => Array
+        (
+            [NAME] => test7
+            [EMAIL] => test7
+            [PHONE] => test7
+            [GROUP_NAME] => NewGroup
+            [PROJECTS] => 
         )
 
 )

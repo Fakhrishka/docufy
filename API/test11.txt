@@ -1,0 +1,57 @@
+Array
+(
+    [0] => Array
+        (
+            [NAME] => Fakhri Gul
+            [LOGIN] => Fakhrishka
+        )
+
+    [1] => Array
+        (
+            [NAME] => TESTER
+            [LOGIN] => Tester2
+        )
+
+    [2] => Array
+        (
+            [NAME] => Tamik
+            [LOGIN] => Tamikbey
+        )
+
+    [3] => Array
+        (
+            [NAME] => fakhri asadov
+            [LOGIN] => asad
+        )
+
+    [4] => Array
+        (
+            [NAME] => fakhri
+            [LOGIN] => asad2
+        )
+
+    [5] => Array
+        (
+            [NAME] => ASFDASFASDF
+            [LOGIN] => test5
+        )
+
+    [6] => Array
+        (
+            [NAME] => asdfasfasd
+            [LOGIN] => test6
+        )
+
+    [7] => Array
+        (
+            [NAME] => test7
+            [LOGIN] => test7
+        )
+
+    [8] => Array
+        (
+            [NAME] => asdasdsadsa
+            [LOGIN] => test8
+        )
+
+)

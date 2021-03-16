@@ -30,9 +30,10 @@ Array
 
     [4] => Array
         (
-            [GROUP_NAME] => asdfasdfas
-            [NUM_USERS] => 2
-            [ACCESS] => asdfasdfas
+            [GROUP_NAME] => NewGroup
+            [NUM_USERS] => 3
+            [ACCESS] => view
         )
 
+    [newgroup] => 1
 )
