@@ -1,5 +1,6 @@
 Array
 (
-    [action] => readPayment
-    [id] => 12
+    [action] => logcheck
+    [id] => 1
+    [hash] => de9451bd5f7160dd28d22ee116451418
 )

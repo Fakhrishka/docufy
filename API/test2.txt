@@ -1,6 +1,6 @@
 Array
 (
     [action] => logcheck
-    [id] => 12
-    [hash] => 54cd2454a5a127302cd6e7b3785cf5b3
+    [id] => 1
+    [hash] => de9451bd5f7160dd28d22ee116451418
 )

@@ -1,7 +1,14 @@
 <script type="module" >
 import { RequestAPI } from './requestapi.js';
 window.RequestAPI = RequestAPI;
+window.updGroup = updGroup;
 document.onload = RequestAPI.Request('readGroup');
+
+function updGroup(extra)
+{
+	document.getElementById('groupchange').innerHTML = "<br><input type='text' id='newgroupname'><button onclick='RequestAPI.Request(\"updateGroup\", \""+extra+"\")'>Save changes</button>";
+}
+
 </script>
 
 <!DOCTYPE html>

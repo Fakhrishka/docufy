@@ -77,6 +77,16 @@ export class RequestAPI
 						document.getElementById('body').innerHTML = html;
 						break;
 
+					case 'deleteProject':
+						console.log(myArr);
+						if(myArr['status'] == '200')
+							RequestAPI.Request('readProjects');
+						break;
+
+					case 'createProject':
+						if(myArr['status'] == '200')
+							 RequestAPI.Request('readProjects');
+						break;
 					case 'readProjects':
 						if(myArr['status'] == 'no_project')
 							html = 'Sorry man, you ain\'t got any project...';
@@ -87,7 +97,14 @@ export class RequestAPI
 							{
 								if(typeof myArr[project] !== 'object')
 									continue;
-								html += "<div style='background-color: lightgrey;width: 300px;border: 2px solid green;padding: 50px;margin: 5px;'>Project name: "+myArr[project]['NAME']+"<br>Creater: "+myArr[project]['CREATER']+"<br>Project workers: "+myArr[project]['PROJECT_WORKERS']+"<br>Finish date: "+myArr[project]['DATE_FINISH']+"</div>";
+								html += "<div style='background-color: lightgrey;width: 300px;border: 2px solid green;padding: 50px;margin: 5px;'>Project name: "+myArr[project]['NAME']+"<br>Creater: "+myArr[project]['CREATER']+"<br>Project workers: "+myArr[project]['PROJECT_WORKERS']+"<br>Finish date: "+myArr[project]['DATE_FINISH'];
+								
+								if(myArr[project]['projectedit'])
+									html += "<br><button onclick='updProject(\""+ myArr[project]['NAME']+"\")'>Update</button><div id='projectedit'></div>";
+
+								if(myArr['newproject'])
+									html += "<br><button onclick='RequestAPI.Request(\"deleteProject\", \""+ myArr[project]['NAME']+"\")'>Delete</button><br>";
+								html += "</div>";
 							}
 
 							if(myArr['newproject'])
@@ -113,7 +130,7 @@ export class RequestAPI
 						// {
 						//     html += "<option id='"+ user.LOGIN +"'>"+user.NAME+"</option>"
 						// });
-						html += "</select>Work to do: <input type='text' id='worktodo'><br>Status: <select id='status'><option id='draft'>Draft</option><option id='process'>In process</option><option id='finished'>Finished</option><option id='declined'>Declined</option></select><br><button onclick='RequestAPI.Request(\"createProject\");'>Submit new project</button>";
+						html += "</select>Work to do: <input type='text' id='worktodo'><br>Status: <select id='status'><option id='draft'>Draft</option><option id='process'>In process</option><option id='finished'>Finished</option><option id='declined'>Declined</option></select><br><button onclick='RequestAPI.Request(\"createProject\")';>Submit new project</button>";
 						document.getElementById('project').innerHTML = html;
 						break;
 
@@ -134,13 +151,24 @@ export class RequestAPI
 
 							html += 'Group name: ' + myArr[group]['GROUP_NAME'] + "<br>People in group: " + myArr[group]['NUM_USERS'] + "";
 							if(myArr['newgroup'])
-								html += "<br><button onclick='RequestAPI.Request(\"deleteGroup\", \""+ myArr[group]['GROUP_NAME']+"\")'>Delete</button><br>"
+								html += "<br><button onclick='RequestAPI.Request(\"deleteGroup\", \""+ myArr[group]['GROUP_NAME']+"\")'>Delete</button><br><button onclick='updGroup(\""+ myArr[group]['GROUP_NAME']+"\")'>Update</button><div id='groupchange'></div><br>";
 
 						}
 						if(myArr['newgroup'])
 							html += "<br><br><br>Group name: <input type='text' id='group_name'><br>Access: <select id='access'><option id='all'>All</option><option value='read'>Read</option><option value='write'>Write</option><option value='view'>View</option></select><br><button onclick='RequestAPI.Request(\"createGroup\")'>Create new group</button>";
 
 						document.getElementById('body').innerHTML = html;
+						break;
+
+
+					case 'updateGroup':
+						if(myArr['status'] == '200')
+							RequestAPI.Request("readGroup");
+						break;
+
+					case 'updateProject':
+						if(myArr['status'] == '200')
+							RequestAPI.Request('readProjects');
 						break;
 
 					case 'createGroup':
@@ -235,6 +263,12 @@ export class RequestAPI
 				xmlhttp.open("GET", "API/api.php?action=createProject&name="+document.getElementById('proj_name').value+"&date="+document.getElementById('date').value + "&workers="+document.getElementById('workers').value+"&worktodo="+document.getElementById('worktodo').value+"&status="+document.getElementById('status').value+"&creater="+RequestAPI.readCookie('id'), true);
 				xmlhttp.send();
 				break;
+
+			case 'deleteProject':
+				xmlhttp.open("GET", "API/api.php?action=deleteProject&name="+extra, true);
+				xmlhttp.send();
+				break;
+				
 			case 'getUsers':
 				xmlhttp.open("GET", "API/api.php?action=getUsers", true);
 				xmlhttp.send();
@@ -256,7 +290,14 @@ export class RequestAPI
 				xmlhttp.open("GET", "API/api.php?action=deleteGroup&group_name="+extra, true);
 				xmlhttp.send();
 				break;
-
+			case 'updateGroup':
+				xmlhttp.open("GET", "API/api.php?action=updateGroup&newname="+document.getElementById('newgroupname').value+"&oldname="+extra, true);
+				xmlhttp.send();
+				break;
+			case 'updateProject':
+				xmlhttp.open("GET", "API/api.php?action=updateProject&newname="+document.getElementById('newprojname').value+"&oldname="+extra, true);
+				xmlhttp.send();
+				break;	
 			case 'readUser':
 				xmlhttp.open("GET", "API/api.php?action=readUser&id=" + RequestAPI.readCookie('id'), true);
 				xmlhttp.send();

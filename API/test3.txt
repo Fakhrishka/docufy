@@ -28,12 +28,5 @@ Array
             [ACCESS] => ALL
         )
 
-    [4] => Array
-        (
-            [GROUP_NAME] => NewGroup
-            [NUM_USERS] => 3
-            [ACCESS] => view
-        )
-
     [newgroup] => 1
 )

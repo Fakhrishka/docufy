@@ -157,9 +157,20 @@ class ApiFunctions
 			echo json_encode($arResult);
 	}
 
+	static function updateProject(string $sOldName, string $sNewname, $db)
+	{
+
+		mysqli_query($db, "SET FOREIGN_KEY_CHECKS=0");
+
+		mysqli_query($db, "UPDATE project SET NAME='".$sNewname."' WHERE NAME='".$sOldName."'");
+
+		echo json_encode(Array("status" => "200"));
+
+	}
+
 	static function readProject(int $nUserId, $db)
 	{
-		$query = mysqli_query($db, "SELECT GROUP_NAME FROM user WHERE USER_ID = '".intval($nUserId)."' LIMIT 1");
+		$query = mysqli_query($db, "SELECT GROUP_NAME, LOGIN FROM user WHERE USER_ID = '".intval($nUserId)."' LIMIT 1");
 		$arUserData = mysqli_fetch_assoc($query);	
 		$arResult = Array();
 
@@ -170,7 +181,11 @@ class ApiFunctions
 			$query = mysqli_query($db, "SELECT * FROM project");
 
 			while(!empty($arProject = mysqli_fetch_assoc($query)))
+			{
+				if($arProject['CREATER'] === $arUserData['LOGIN'])
+					$arProject['projectedit'] = true;
 				$arResult[] = $arProject;
+			}
 		}
 		else
 		{
@@ -188,7 +203,12 @@ class ApiFunctions
 			{
 				$groupQuery = mysqli_query($db, "SELECT * FROM project WHERE NAME= '".$sProjName."'");
 				while(!empty($arProject = mysqli_fetch_assoc($groupQuery)))
+				{
+					file_put_contents('checkup.txt', $arProject['CREATER'] . "  :  " . $arUserData['LOGIN'], FILE_APPEND);
+					if($arProject['CREATER'] === $arUserData['LOGIN'])
+						$arProject['projectedit'] = true;
 					$arResult[] = $arProject;
+				}
 			}
 		}
 
@@ -200,6 +220,41 @@ class ApiFunctions
 			echo json_encode($arResult);
 		}
 	}
+
+	static function deleteProject($sProjName, $db)
+	{
+		$userQuery = mysqli_query($db, "SELECT PROJECT_WORKERS FROM project WHERE NAME = '".$sProjName."'");
+		$userData = mysqli_fetch_assoc($userQuery);
+
+		if(isset($userData['PROJECT_WORKERS']) && !empty($userData['PROJECT_WORKERS']) && $userData['PROJECT_WORKERS'] != '')
+		{
+			$arUserData = explode(',', $userData['PROJECT_WORKERS']);
+
+			foreach ($arUserData as $key => $sUser) // Updating user's projects as we delete one
+			{
+				$userQuery = mysqli_query($db, "SELECT PROJECTS from user WHERE LOGIN='".$sUser."'");
+				$userData = mysqli_fetch_assoc($userQuery);
+
+				if(!isset($userData['PROJECTS']) && empty($userData['PROJECTS']))
+					continue;
+				$arUserProjects = explode(',', $userData['PROJECTS']);
+				foreach ($arUserProjects as $key => $sProj)
+				{
+					if($sProj === $sProjName)
+						unset($arUserProjects[$key]);
+				}
+
+				mysqli_query($db, "UPDATE user SET PROJECTS='".implode(',', $arUserProjects)."' WHERE NAME='".$sUser."'");
+			}			
+		}
+
+
+		$query = mysqli_query($db, "SET FOREIGN_KEY_CHECKS=0");
+		mysqli_query($db, "DELETE FROM project WHERE NAME = '".$sProjName."'");
+		mysqli_query($db, "DELETE FROM project_payment WHERE PROJECT_NAME = '".$sProjName."'");
+		echo json_encode(Array('status' => '200'));
+	}
+
 
 	static function LoginCheckUp(int $nUserId, string $sCookieHash, $db)
 	{
@@ -367,15 +422,24 @@ class ApiFunctions
 					'vremenno tak...'
 					)")
 			)
-				echo json_encode(Array('response' => 'false'));	
+				echo json_encode(Array('status' => '404'));	
 			else
-				echo json_encode(Array('response' => 'success'));
+				echo json_encode(Array('status' => '200'));
 		}
 
 
 	}
 
+	static function updateGroup(string $sOldName, string $sNewName, $db)
+	{
+		mysqli_query($db, "SET FOREIGN_KEY_CHECKS=0");
 
+		file_put_contents('testgroup.txt', $sOldName . $sNewName);
+		mysqli_query($db, "UPDATE groups SET GROUP_NAME='".$sNewName."' WHERE GROUP_NAME='".$sOldName."'");
+
+		file_put_contents('testgrou2p.txt', $db->error);
+		echo json_encode(Array("status" => "200"));
+	}
 
 	static function readUser(int $nUserId, $db)
 	{
@@ -467,6 +531,13 @@ if(!empty($_GET))
 		case 'deleteGroup':
 			ApiFunctions::deleteGroup($_GET['group_name'], $db);
 			break;
+		case 'updateGroup':
+			ApiFunctions::updateGroup($_GET['oldname'], $_GET['newname'], $db);
+			break;
+
+		case 'updateProject':
+			ApiFunctions::updateProject($_GET['oldname'], $_GET['newname'], $db);
+			break;
 
 		case 'readProjects':
 			ApiFunctions::readProject($_GET['id'], $db);
@@ -483,6 +554,10 @@ if(!empty($_GET))
 				$db
 			);
 			break;
+
+		case 'deleteProject':
+			ApiFunctions::deleteProject($_GET['name'], $db);
+			break;	
 
 		case 'getUsers':
 			ApiFunctions::getUsers($db);
